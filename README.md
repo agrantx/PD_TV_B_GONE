@@ -10,7 +10,7 @@
 
 ---------------------------------------------------------------------------------
 ## 🌐 HTML Flasher 🌐 (beta)
-[🌐 Open HTML Flasher](#)
+[🌐 Open HTML Flasher](https://agrantx.github.io/PD_TV_B_GONE/pd-rf-flasher.html)
 ⚠️ If the HTML Flasher does not work, use the manual flasher available [here](https://espressif.github.io/esptool-js/)
 1. Open the flasher
 2. Connect your ESP32-C3
