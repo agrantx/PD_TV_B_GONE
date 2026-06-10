@@ -1,104 +1,132 @@
-📡 PD RF
-Portable RF Toolkit based on ESP32-C3
+# 📺 TV-B-Gone + IR Jammer
+Portable IR Toolkit based on ESP32-C3 SuperMini
 
-██████╗ ██████╗     ██████╗ ███████╗
-██╔══██╗██╔══██╗    ██╔══██╗██╔════╝
-██████╔╝██║  ██║    ██████╔╝█████╗
-██╔═══╝ ██║  ██║    ██╔══██╗██╔══╝
-██║     ██████╔╝    ██║  ██║██║
-╚═╝     ╚═════╝     ╚═╝  ╚═╝╚═╝
-🌐 html Flasher 🌐 (beta)
-🌐 Open html Flasher
+```
+████████╗██╗   ██╗    ██████╗      ██████╗  ██████╗ ███╗   ██╗███████╗
+╚══██╔══╝██║   ██║    ██╔══██╗    ██╔════╝ ██╔═══██╗████╗  ██║██╔════╝
+   ██║   ██║   ██║    ██████╔╝    ██║  ███╗██║   ██║██╔██╗ ██║█████╗
+   ██║   ╚██╗ ██╔╝    ██╔══██╗    ██║   ██║██║   ██║██║╚██╗██║██╔══╝
+   ██║    ╚████╔╝     ██████╔╝    ╚██████╔╝╚██████╔╝██║ ╚████║███████╗
+   ╚═╝     ╚═══╝      ╚═════╝      ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+```
 
-⚠️ If the html Flasher does not work, use the manual flasher available here
+Two modes in one device — IR Jammer and TV-B-Gone.
+Turns off TVs and blocks IR remotes using a single ESP32-C3 SuperMini.
 
-Open the flasher
-Connect your ESP32
-Select the pd_rf_main.ino.bin file
-Click Flash and wait for the process to complete
-🌐 Web menu preview 🌐
-🌐 Open menu preview
+---
 
-🔌 Pinout
-📡 CC1101
-Signal	GPIO
-CSN	GPIO 5
-GDO0	GPIO 4
-GDO2	GPIO 3
-MOSI	GPIO 7
-MISO	GPIO 2
-SCK	GPIO 6
-🖥 OLED SSD1306
-Signal	GPIO
-SDA	GPIO 9
-SCL	GPIO 10
-💾 SD Card
-Signal	GPIO
-CS	GPIO 8
-MOSI	GPIO 7
-MISO	GPIO 2
-SCK	GPIO 6
-🔘 Buttons
-Button	GPIO
-UP	GPIO 0
-DOWN	GPIO 1
-OK	GPIO 21
-⚠️ Power Notes
-NRF24L01 modules can be sensitive to power quality.
+## ⚙️ How it works
 
-Use a stable 3.3V supply
-Add a 10µF–100µF capacitor between VCC and GND near the module
-Do not connect VCC to 5V
-📦 Hardware
-ESP32-C3
+### 📡 IR Jammer
+Floods the IR channel with a continuous 38 kHz carrier signal.
+Any TV within range will stop responding to its remote control for as long as the jammer is active.
 
-CC1101
+### 📺 TV-B-Gone
+Cycles through power-off IR codes for dozens of TV brands:
+Samsung, LG, Sony, Panasonic, Philips, Sharp, Toshiba, Hitachi, Grundig, Vizio, Hisense, TCL and more.
+Each code is sent and confirmed with an LED blink.
 
-OLED SSD1306 (I2C)
+---
 
-MicroSD Card Module
+## 🔘 Controls
 
-3 Push Buttons
+| Action | Result |
+|---|---|
+| Click **Boot** (GPIO9) | IR Jammer starts, runs forever |
+| Click **Button** (GPIO3) while jamming | Jammer stops, TV-B-Gone starts |
+| TV-B-Gone finishes | Returns to idle, waiting |
+| **Reset** button | Stops everything immediately |
 
-Upgrading from Standard CC1101 to E07-433M20S
-coming soon
-This project can be upgraded from a standard CC1101 module to the E07-433M20S high-power RF transceiver.
+---
 
-What changes are required?
-wait for the update
-Recommended additions
-The E07-433M20S consumes significantly more power than a standard CC1101 module.
+## 💡 LED Indicator
 
-Recommended:
+| State | LED (GPIO8) |
+|---|---|
+| Idle | ⚫ off |
+| Jamming | 🔵 solid on |
+| TV-B-Gone sending | 🔵 blinks per code |
 
-Stable 3.3V power supply
-Dedicated voltage regulator
-100µF–470µF capacitor between VCC and GND
-Quality 433MHz antenna
-Short power wires and solid grounding
-The module can draw around 100mA during transmission at maximum power.
+---
 
-Performance Improvements
-The E07-433M20S is based on the CC1101 transceiver and includes a built-in Power Amplifier (PA).
+## 🔌 Pinout
 
-Compared to a standard CC1101 module:
+### 📡 IR Module
+| Signal | GPIO |
+|---|---|
+| DATA | GPIO 10 |
+| VCC | 5V (VBUS) |
+| GND | GND |
 
-Higher transmit power
-Better long-range performance
-Improved signal stability
-External antenna support
-Better performance in noisy RF environments
-The module supports up to 20 dBm (100mW) output power and receiver sensitivity down to -109 dBm. EBYTE specifies communication distances of up to approximately 2 km under ideal open-field conditions with a suitable antenna.
+### 🔘 Buttons
+| Button | GPIO |
+|---|---|
+| Jammer (Boot) | GPIO 9 (built-in) |
+| TV-B-Gone | GPIO 3 |
 
-Why upgrade?
-✔ More transmit power
+> ⚠️ IR module DATA must be connected to **GPIO10**, not GPIO9.
+> GPIO9 is reserved for the built-in Boot button.
 
-✔ Better range
+---
 
-✔ Stronger signal reception
+## 📦 Hardware
 
-✔ External antenna support
+- ESP32-C3 SuperMini
+- IR LED module (940nm) — works with any NPN transistor driver
+- IR LEDs — more LEDs = more range (tested with 9 LEDs)
+- Push button
+- Battery or USB power
 
-✔ Improved reliability
+---
 
-For users who want maximum Sub-GHz performance, the E07-433M20S is a significant upgrade over a standard CC1101 module and is the recommended choice for long-range applications.
+## ⚠️ Power Notes
+
+The IR module should be powered from **5V (VBUS)**, not 3.3V.
+
+- Using 3.3V will reduce range by ~50%
+- More IR LEDs in parallel = wider beam angle and better coverage
+- A transistor driver is required when using multiple LEDs
+
+### Range Estimates
+
+| IR LEDs | Range |
+|---|---|
+| 1 | ~3–5 m |
+| 3 | ~7–10 m |
+| 9 | ~12–15 m |
+
+---
+
+## 🛠 Flashing
+
+**Arduino IDE 2.x**
+
+Add to Preferences → Additional boards URL:
+```
+https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+```
+
+1. Boards Manager → install **esp32 by Espressif**
+2. Select board: **ESP32C3 Dev Module**
+3. Place `tv_b_gone.ino` and `codes.h` in the same folder
+4. Select port and flash
+
+---
+
+## 📝 Adding Custom Codes
+
+IR codes are stored in `codes.h` in PROGMEM to save RAM.
+
+```cpp
+static const uint16_t PROGMEM myTimings[] = { /* durations in µs */ };
+static const uint8_t  PROGMEM myPairs[]   = { /* mark/space index pairs */ };
+
+// Add to allCodes[] array:
+{ myTimings, myPairs, sizeof(myPairs), nRepeat, gapMicros },
+```
+
+IR code database: [IRDB on GitHub](https://github.com/probonopd/irdb)
+
+---
+
+*Based on the original TV-B-Gone by Mitch Altman / Limor Fried (Lady Ada)*
