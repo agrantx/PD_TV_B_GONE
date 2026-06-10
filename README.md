@@ -1,1 +1,104 @@
-# PD_TV_B_GONE
+📡 PD RF
+Portable RF Toolkit based on ESP32-C3
+
+██████╗ ██████╗     ██████╗ ███████╗
+██╔══██╗██╔══██╗    ██╔══██╗██╔════╝
+██████╔╝██║  ██║    ██████╔╝█████╗
+██╔═══╝ ██║  ██║    ██╔══██╗██╔══╝
+██║     ██████╔╝    ██║  ██║██║
+╚═╝     ╚═════╝     ╚═╝  ╚═╝╚═╝
+🌐 html Flasher 🌐 (beta)
+🌐 Open html Flasher
+
+⚠️ If the html Flasher does not work, use the manual flasher available here
+
+Open the flasher
+Connect your ESP32
+Select the pd_rf_main.ino.bin file
+Click Flash and wait for the process to complete
+🌐 Web menu preview 🌐
+🌐 Open menu preview
+
+🔌 Pinout
+📡 CC1101
+Signal	GPIO
+CSN	GPIO 5
+GDO0	GPIO 4
+GDO2	GPIO 3
+MOSI	GPIO 7
+MISO	GPIO 2
+SCK	GPIO 6
+🖥 OLED SSD1306
+Signal	GPIO
+SDA	GPIO 9
+SCL	GPIO 10
+💾 SD Card
+Signal	GPIO
+CS	GPIO 8
+MOSI	GPIO 7
+MISO	GPIO 2
+SCK	GPIO 6
+🔘 Buttons
+Button	GPIO
+UP	GPIO 0
+DOWN	GPIO 1
+OK	GPIO 21
+⚠️ Power Notes
+NRF24L01 modules can be sensitive to power quality.
+
+Use a stable 3.3V supply
+Add a 10µF–100µF capacitor between VCC and GND near the module
+Do not connect VCC to 5V
+📦 Hardware
+ESP32-C3
+
+CC1101
+
+OLED SSD1306 (I2C)
+
+MicroSD Card Module
+
+3 Push Buttons
+
+Upgrading from Standard CC1101 to E07-433M20S
+coming soon
+This project can be upgraded from a standard CC1101 module to the E07-433M20S high-power RF transceiver.
+
+What changes are required?
+wait for the update
+Recommended additions
+The E07-433M20S consumes significantly more power than a standard CC1101 module.
+
+Recommended:
+
+Stable 3.3V power supply
+Dedicated voltage regulator
+100µF–470µF capacitor between VCC and GND
+Quality 433MHz antenna
+Short power wires and solid grounding
+The module can draw around 100mA during transmission at maximum power.
+
+Performance Improvements
+The E07-433M20S is based on the CC1101 transceiver and includes a built-in Power Amplifier (PA).
+
+Compared to a standard CC1101 module:
+
+Higher transmit power
+Better long-range performance
+Improved signal stability
+External antenna support
+Better performance in noisy RF environments
+The module supports up to 20 dBm (100mW) output power and receiver sensitivity down to -109 dBm. EBYTE specifies communication distances of up to approximately 2 km under ideal open-field conditions with a suitable antenna.
+
+Why upgrade?
+✔ More transmit power
+
+✔ Better range
+
+✔ Stronger signal reception
+
+✔ External antenna support
+
+✔ Improved reliability
+
+For users who want maximum Sub-GHz performance, the E07-433M20S is a significant upgrade over a standard CC1101 module and is the recommended choice for long-range applications.
