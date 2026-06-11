@@ -61,7 +61,7 @@ Each sent code is confirmed with an LED blink.
 | Button | GPIO |
 |---|---|
 | Jammer | GPIO 9 (Boot, built-in) |
-| TV-B-Gone | GPIO 3 |
+| TV-B-Gone | GPIO 4 |
 
 > ⚠️ IR module DATA must be on **GPIO10**, not GPIO9 — GPIO9 is reserved for the Boot button.
 
